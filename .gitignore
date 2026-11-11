@@ -1,0 +1,15 @@
+# Secrets - never commit these
+.env
+*.key
+
+# Python / Jupyter clutter
+.ipynb_checkpoints
+__pycache__
+*.pyc
+
+# Local SQLite database (rebuilt from outputs/load_data.sql)
+*.db
+
+# Editor / tool settings
+.claude/
+.vscode/

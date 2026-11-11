@@ -1,0 +1,9 @@
+pandas
+numpy
+requests
+scikit-learn
+matplotlib
+pydantic
+google-genai
+jupyter
+nbconvert
