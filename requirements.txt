@@ -7,3 +7,4 @@ pydantic
 google-genai
 jupyter
 nbconvert
+mysql-connector-python
