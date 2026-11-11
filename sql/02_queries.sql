@@ -35,3 +35,30 @@ INSERT INTO appointments VALUES
 -- Error returned by MySQL (the primary key refuses the duplicate):
 --   Error Code: 1062 (23000): Duplicate entry 'A0001' for key 'appointments.PRIMARY'
 -- (SQLite words the same refusal as: UNIQUE constraint failed: appointments.appointment_id)
+
+-- ---------------------------------------------------------------------
+-- Task 2.2  No-show rate by clinic
+-- ---------------------------------------------------------------------
+-- (a) Only clinics with at least 95 appointments.
+SELECT c.clinic_name,
+       c.city,
+       COUNT(*)                                   AS appointments,
+       SUM(a.no_show)                             AS no_shows,
+       ROUND(100.0 * SUM(a.no_show) / COUNT(*), 1) AS no_show_pct
+FROM appointments a
+JOIN clinics c ON a.clinic_id = c.clinic_id
+GROUP BY c.clinic_id, c.clinic_name, c.city
+HAVING COUNT(*) >= 95
+ORDER BY no_show_pct DESC;
+
+-- (b) The same query without HAVING: all 8 clinics.
+--     Gomti Nagar Care Point (Lucknow) has the highest rate, 33.3%, but only 90 appointments.
+SELECT c.clinic_name,
+       c.city,
+       COUNT(*)                                   AS appointments,
+       SUM(a.no_show)                             AS no_shows,
+       ROUND(100.0 * SUM(a.no_show) / COUNT(*), 1) AS no_show_pct
+FROM appointments a
+JOIN clinics c ON a.clinic_id = c.clinic_id
+GROUP BY c.clinic_id, c.clinic_name, c.city
+ORDER BY no_show_pct DESC;
